@@ -35,10 +35,34 @@ async def on_message(message):
     #     if rand == 1:
     #         await message.channel.send(f'{message.author.name}は後攻です！')
         
-    if message.content == "^mute":
+    if message.content == "^mute_0":
         if message.author.guild_permissions.administrator:
-            bot_vc = message.guild.me.voice.channel # botのいるボイスチャンネルを取得
-            for member in bot_vc.members:
+            vc0 = client.get_channel{797564863186599966} # ボイスチャンネルを取得
+            for member in vc0.members:
+                await member.edit(mute=True) # チャンネルの各参加者をミュートする
+        else:
+            await message.channel.send("実行できません。")
+    
+    if message.content == "^mute_1":
+        if message.author.guild_permissions.administrator:
+            vc1 = client.get_channel{698250599921221653} # ボイスチャンネルを取得
+            for member in vc1.members:
+                await member.edit(mute=True) # チャンネルの各参加者をミュートする
+        else:
+            await message.channel.send("実行できません。")
+
+    if message.content == "^mute_2":
+        if message.author.guild_permissions.administrator:
+            vc2 = client.get_channel{698250895997141064} # ボイスチャンネルを取得
+            for member in vc2.members:
+                await member.edit(mute=True) # チャンネルの各参加者をミュートする
+        else:
+            await message.channel.send("実行できません。")
+
+    if message.content == "^mute_3":
+        if message.author.guild_permissions.administrator:
+            vc3 = client.get_channel{797573029478793236} # ボイスチャンネルを取得
+            for member in vc3.members:
                 await member.edit(mute=True) # チャンネルの各参加者をミュートする
         else:
             await message.channel.send("実行できません。")
@@ -59,7 +83,7 @@ async def on_message(message):
         await message.channel.send("-----------------------------------------------メイン機能-------------------------------------------------\n\
 ボイスチャンネルを開始時、テキストチャットに通知が出ます。\n\
 ボイスチャンネルを終了時、テキストチャットに通知が出ます。\n\
-「^mute」：ボイスチャンネルの全員をミュートします。\n\
+「^mute_x」：全員をミュートします。(xはボイスチャンネルで0,1,2,3が入ります)\n\
 ------------------------------------------------サブ機能--------------------------------------------------\n\
 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)\n\
 「^help」：操作説明を表示します。\n\
