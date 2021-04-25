@@ -8,9 +8,9 @@ TOKEN = 'ODMyMjIxMzk4NjU4OTczNzQ2.YHgokw.G5u4p9vVJZo5ueGKijfxmamJFEs'
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-CHANNEL_ID = 735441730509209601
+#CHANNEL_ID = 735441730509209601
 #テストサーバー用
-#CHANNEL_ID = 734764164576182305
+CHANNEL_ID = 734764164576182305
 
 # 起動時に動作する処理
 @client.event
@@ -56,11 +56,13 @@ async def on_message(message):
 
 
         
-    if "^mute" in message.content:
-        await mute(message.content, message)
+    #if "^mute" in message.content:
+    if message.content == "^mute":
+        await mute(message)
 
-    if "^unmute" in message.content:
-        await unmute(message.content, message)
+    #if "^unmute" in message.content:
+    if message.content == "^unmute":
+        await unmute(message)
         
     # if message.content == "^mute_0":
     #     if message.author.guild_permissions.administrator:
@@ -115,8 +117,8 @@ async def on_message(message):
 ボイスチャンネルを終了時、テキストチャットに通知が出ます。\n\
 「^join」：botをボイスチャンネルに参加させます。\n\
 「^leave」：botをボイスチャンネルから退出させます。\n\
-「^mute_x」：botが参加しているボイスチャンネルの全員をミュートします。(xはボイスチャンネルで0,1,2,3が入ります)\n\
-「^unmute_x」：botが参加しているボイスチャンネルの全員をミュート解除します。(xはボイスチャンネルで0,1,2,3が入ります)\n\
+「^mute」：botが参加しているボイスチャンネルの全員をミュートします。\n\
+「^unmute」：botが参加しているボイスチャンネルの全員をミュート解除します。\n\
 ------------------------------------------------サブ機能--------------------------------------------------\n\
 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)\n\
 「^help」：操作説明を表示します。\n\
@@ -141,98 +143,42 @@ async def on_vc_end(member,channel):
 @client.event
 async def on_voice_state_update(member,before,after):
     if before.channel != after.channel:
+        #print(before.channel)
+        #print(after.channel)
         # before.channelとafter.channelが異なるなら入退室
         if after.channel and len(after.channel.members) == 1:
+            #print(len(after.channel.members))
             # もし、ボイスチャットが開始されたら
             client.dispatch("vc_start",member,after.channel) #発火！
 
         if before.channel and len(before.channel.members) == 0:
+            #print(len(before.channel.members))
             # もし、ボイスチャットが終了したら
             client.dispatch("vc_end",member,before.channel) #発火！
 
-async def mute(str, message):
-    tmp = [None, None]
-    if "_" in str:
-        tmp = str.split("_")
-        if tmp[1] == "0":
-            if message.author.guild_permissions.administrator:
-                #await message.channel.send("admin")
-                vc0 = client.get_channel(797564863186599966) # ボイスチャンネルを取得
-                #テストサーバー用
-                #vc0 = client.get_channel(734764164576182306)
-                await message.channel.send("ミュートするよ！")
-                for member in vc0.members:
-                    await member.edit(mute=True) # チャンネルの各参加者をミュートする
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "1":
-            if message.author.guild_permissions.administrator:
-                vc1 = client.get_channel(698250599921221653) # ボイスチャンネルを取得
-                await message.channel.send("ミュートするよ！")
-                for member in vc1.members:
-                    await member.edit(mute=True) # チャンネルの各参加者をミュートする
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "2":
-            if message.author.guild_permissions.administrator:
-                vc2 = client.get_channel(698250895997141064) # ボイスチャンネルを取得
-                await message.channel.send("ミュートするよ！")
-                for member in vc2.members:
-                    await member.edit(mute=True) # チャンネルの各参加者をミュートする
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "3":
-            if message.author.guild_permissions.administrator:
-                vc3 = client.get_channel(797573029478793236) # ボイスチャンネルを取得
-                await message.channel.send("ミュートするよ！")
-                for member in vc3.members:
-                    await member.edit(mute=True) # チャンネルの各参加者をミュートする
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        else:
-            await message.channel.send("そんなチャンネルはないよ！")
 
-async def unmute(str, message):
-    tmp = [None, None]
-    if "_" in str:
-        tmp = str.split("_")
-        if tmp[1] == "0":
-            if message.author.guild_permissions.administrator:
-                #await message.channel.send("admin")
-                #vc0 = client.get_channel(797564863186599966) # ボイスチャンネルを取得
-                #テストサーバー用
-                vc0 = client.get_channel(734764164576182306)
-                await message.channel.send("ミュート解除するよ！")
-                for member in vc0.members:
-                    await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "1":
-            if message.author.guild_permissions.administrator:
-                vc1 = client.get_channel(698250599921221653) # ボイスチャンネルを取得
-                await message.channel.send("ミュート解除するよ！")
-                for member in vc1.members:
-                    await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "2":
-            if message.author.guild_permissions.administrator:
-                vc2 = client.get_channel(698250895997141064) # ボイスチャンネルを取得
-                await message.channel.send("ミュート解除するよ！")
-                for member in vc2.members:
-                    await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        elif tmp[1] == "3":
-            if message.author.guild_permissions.administrator:
-                vc3 = client.get_channel(797573029478793236) # ボイスチャンネルを取得
-                await message.channel.send("ミュート解除するよ！")
-                for member in vc3.members:
-                    await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
-            else:
-                await message.channel.send("管理者じゃないよ！")
-        else:
-            await message.channel.send("そんなチャンネルはないよ！")
+
+async def mute(message):
+    if message.author.guild_permissions.administrator:
+        #await message.channel.send("admin")
+        vc = message.guild.me.voice.channel # ボイスチャンネルを取得
+        await message.channel.send("ミュートするよ！")
+        for member in vc.members:
+            await member.edit(mute=True) # チャンネルの各参加者をミュートする
+    else:
+        await message.channel.send("管理者じゃないよ！")
+
+
+async def unmute(message):
+    if message.author.guild_permissions.administrator:
+        #await message.channel.send("admin")
+        vc = message.guild.me.voice.channel
+        await message.channel.send("ミュート解除するよ！")
+        for member in vc0.members:
+            await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
+    else:
+        await message.channel.send("管理者じゃないよ！")
+        
  
 
 
