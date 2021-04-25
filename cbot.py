@@ -37,7 +37,7 @@ async def on_message(message):
         
     if message.content == "^mute_0":
         if message.author.guild_permissions.administrator:
-            vc0 = client.get_channel{797564863186599966} # ボイスチャンネルを取得
+            vc0 = client.get_channel(797564863186599966) # ボイスチャンネルを取得
             for member in vc0.members:
                 await member.edit(mute=True) # チャンネルの各参加者をミュートする
         else:
@@ -45,7 +45,7 @@ async def on_message(message):
     
     if message.content == "^mute_1":
         if message.author.guild_permissions.administrator:
-            vc1 = client.get_channel{698250599921221653} # ボイスチャンネルを取得
+            vc1 = client.get_channel(698250599921221653) # ボイスチャンネルを取得
             for member in vc1.members:
                 await member.edit(mute=True) # チャンネルの各参加者をミュートする
         else:
@@ -53,7 +53,7 @@ async def on_message(message):
 
     if message.content == "^mute_2":
         if message.author.guild_permissions.administrator:
-            vc2 = client.get_channel{698250895997141064} # ボイスチャンネルを取得
+            vc2 = client.get_channel(698250895997141064) # ボイスチャンネルを取得
             for member in vc2.members:
                 await member.edit(mute=True) # チャンネルの各参加者をミュートする
         else:
@@ -61,7 +61,7 @@ async def on_message(message):
 
     if message.content == "^mute_3":
         if message.author.guild_permissions.administrator:
-            vc3 = client.get_channel{797573029478793236} # ボイスチャンネルを取得
+            vc3 = client.get_channel(797573029478793236) # ボイスチャンネルを取得
             for member in vc3.members:
                 await member.edit(mute=True) # チャンネルの各参加者をミュートする
         else:
