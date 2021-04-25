@@ -23,18 +23,26 @@ async def on_message(message):
     if message.author.bot:
         return
     # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '^neko':
-        await message.channel.send('にゃーん')
-        #await message.channel.send(message.author.id)
+    # if message.content == '^neko':
+    #     await message.channel.send('にゃーん')
+    #     #await message.channel.send(message.author.id)
 
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    if message.content == '^duel':
-        rand = random.randint(0, 1)
-        if rand == 0:
-            await message.channel.send(f'{message.author.name}は先攻です！')
-        if rand == 1:
-            await message.channel.send(f'{message.author.name}は後攻です！')
+    # # 「/neko」と発言したら「にゃーん」が返る処理
+    # if message.content == '^duel':
+    #     rand = random.randint(0, 1)
+    #     if rand == 0:
+    #         await message.channel.send(f'{message.author.name}は先攻です！')
+    #     if rand == 1:
+    #         await message.channel.send(f'{message.author.name}は後攻です！')
         
+    if message.content == "^mute":
+        if message.author.guild_permissions.administrator:
+            bot_vc = message.guild.me.voice.channel # botのいるボイスチャンネルを取得
+            for member in bot_vc.members:
+                await member.edit(mute=True) # チャンネルの各参加者をミュートする
+        else:
+            await message.channel.send("実行できません。")
+            
     #bot停止(管理者のみ)
     if "^stop" in message.content:
         if message.author.id == 576319478606856193:
@@ -51,12 +59,11 @@ async def on_message(message):
         await message.channel.send("-----------------------------------------------メイン機能-------------------------------------------------\n\
 ボイスチャンネルを開始時、テキストチャットに通知が出ます。\n\
 ボイスチャンネルを終了時、テキストチャットに通知が出ます。\n\
+「^mute」：ボイスチャンネルの全員をミュートします。\n\
 ------------------------------------------------サブ機能--------------------------------------------------\n\
 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)\n\
-「^duel」：コマンド送信者が先攻か後攻かランダムに決定します。\
 「^help」：操作説明を表示します。\n\
 「^credit」：製作者について表示します。\n\
-「^neko」：にゃーんって言います。\n\
 ----------------------------------------------------------------------------------------------------------")
         
 @client.event
