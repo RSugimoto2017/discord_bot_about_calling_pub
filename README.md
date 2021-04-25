@@ -1,10 +1,19 @@
-# discordpy-startup
+# discord_bot_about_calling
 
-[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy)
+Discordの通話に関する操作、通知をまとめたbotです。
 
-- Herokuでdiscord.pyを始めるテンプレートです。
-- Use Template からご利用ください。
-- 使い方はこちら： [Discord Bot 最速チュートリアル【Python&Heroku&GitHub】 - Qiita](https://qiita.com/1ntegrale9/items/aa4b373e8895273875a8)
+随時更新予定です。
+
+## 操作方法
+
+>- メイン機能  
+>1. ボイスチャンネルを開始時、テキストチャットに通知が出ます。  
+>2. ボイスチャンネルを終了時、テキストチャットに通知が出ます。  
+>- サブ機能  
+>1. 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)  
+>2. 「^help」：操作説明を表示します。  
+>3. 「^credit」：製作者について通知します。  
+>4. 「^neko」：にゃーんって言います。  
 
 ## 各種ファイル情報
 
