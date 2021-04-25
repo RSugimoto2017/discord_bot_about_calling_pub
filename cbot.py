@@ -8,9 +8,9 @@ TOKEN = 'ODMyMjIxMzk4NjU4OTczNzQ2.YHgokw.G5u4p9vVJZo5ueGKijfxmamJFEs'
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-#CHANNEL_ID = 735441730509209601
+CHANNEL_ID = 735441730509209601
 #テストサーバー用
-CHANNEL_ID = 734764164576182305
+#CHANNEL_ID = 734764164576182305
 
 # 起動時に動作する処理
 @client.event
@@ -58,11 +58,19 @@ async def on_message(message):
         
     #if "^mute" in message.content:
     if message.content == "^mute":
-        await mute(message)
+        #me = await client.fetch_user(576319478606856193)
+        if message.author.voice is not None and message.guild.me in message.author.voice.channel.members:
+            await mute(message)
+        else:
+            await message.channel.send("botを自分と同じボイスチャンネルに入れてからにしてね！")
 
     #if "^unmute" in message.content:
     if message.content == "^unmute":
-        await unmute(message)
+        #me = await client.fetch_user(576319478606856193)
+        if message.author.voice is not None and message.guild.me in message.author.voice.channel.members:
+            await unmute(message)
+        else:
+            await message.channel.send("botを自分と同じボイスチャンネルに入れてからにしてね！")
         
     # if message.content == "^mute_0":
     #     if message.author.guild_permissions.administrator:
@@ -117,8 +125,8 @@ async def on_message(message):
 ボイスチャンネルを終了時、テキストチャットに通知が出ます。\n\
 「^join」：botをボイスチャンネルに参加させます。\n\
 「^leave」：botをボイスチャンネルから退出させます。\n\
-「^mute」：botが参加しているボイスチャンネルの全員をミュートします。\n\
-「^unmute」：botが参加しているボイスチャンネルの全員をミュート解除します。\n\
+「^mute」：自分とbotが参加しているボイスチャンネルの全員をミュートします。\n\
+「^unmute」：自分botが参加しているボイスチャンネルの全員をミュート解除します。\n\
 ------------------------------------------------サブ機能--------------------------------------------------\n\
 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)\n\
 「^help」：操作説明を表示します。\n\
@@ -172,9 +180,9 @@ async def mute(message):
 async def unmute(message):
     if message.author.guild_permissions.administrator:
         #await message.channel.send("admin")
-        vc = message.guild.me.voice.channel
+        vc1 = message.guild.me.voice.channel
         await message.channel.send("ミュート解除するよ！")
-        for member in vc0.members:
+        for member in vc1.members:
             await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
     else:
         await message.channel.send("管理者じゃないよ！")
