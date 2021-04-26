@@ -1,0 +1,2 @@
+# discord_bot_about_calling_pub
+discord_bot_about_callingのパブリック版です。
