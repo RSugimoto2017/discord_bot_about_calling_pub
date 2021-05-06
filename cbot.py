@@ -49,13 +49,15 @@ async def on_message(message):
         if message.guild.voice_client is None:
             await message.channel.send("初めからボイスチャンネルに入ってないよ！")
             return
-
         # 切断する
         await message.guild.voice_client.disconnect()
-
         await message.channel.send("また呼んでね！")
 
-
+    if message.content == "^goodnight":
+        if message.author.voice is not None and message.guild.me in message.author.voice.channel.members:
+            await allkick(message)
+        else:
+            await message.channel.send("botを自分と同じボイスチャンネルに入れてからにしてね！")
         
     #if "^mute" in message.content:
     if message.content == "^mute":
@@ -129,6 +131,7 @@ async def on_message(message):
 「^leave」：botをボイスチャンネルから退出させます。\n\
 「^mute」：自分とbotが参加しているボイスチャンネルの全員をミュートします。\n\
 「^unmute」：自分botが参加しているボイスチャンネルの全員をミュート解除します。\n\
+「^goodnight」：自分とbotが参加しているボイスチャンネルの全員を退出させます。\n\
 --------------------------------サブ機能--------------------------------\n\
 「^stop」：botをオフラインにします。(管理者(現在のところもぎ)のみ)\n\
 「^help」：操作説明を表示します。\n\
@@ -167,7 +170,12 @@ async def on_voice_state_update(member,before,after):
             # もし、ボイスチャットが終了したら
             client.dispatch("vc_end",member,before.channel) #発火！
 
-
+async def allkick(message):
+    if message.author.guild_permissions.administrator:
+        vc = message.guild.me.voice.channel
+        await message.channel.send("おやすみなさい！")
+        for member in vc.members:
+            await member.move_to(None)
 
 async def mute(message):
     if message.author.guild_permissions.administrator:
