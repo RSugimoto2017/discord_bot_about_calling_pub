@@ -48,7 +48,6 @@ async def on_message(message):
         
     #if "^mute" in message.content:
     if message.content == "^mute":
-        #me = await client.fetch_user(576319478606856193)
         if message.author.voice is not None and message.guild.me in message.author.voice.channel.members:
             await mute(message)
         else:
@@ -56,7 +55,6 @@ async def on_message(message):
 
     #if "^unmute" in message.content:
     if message.content == "^unmute":
-        #me = await client.fetch_user(576319478606856193)
         if message.author.voice is not None and message.guild.me in message.author.voice.channel.members:
             await unmute(message)
         else:
@@ -64,14 +62,14 @@ async def on_message(message):
             
     #bot停止(管理者のみ)
     if "^stop" in message.content:
-        if message.author.id == 576319478606856193:
+        if message.author.id == '*************************':
             await message.channel.send("ばいばーい！")
             await client.logout()
         else:
             await message.channel.send("管理者専用コマンドだよ！")
     #   クレジット表示
     if "^credit" in message.content:
-        authormem = await client.fetch_user(576319478606856193)
+        authormem = await client.fetch_user('*************************')
         await message.channel.send(f"製作者は「{authormem.name}」です。")
     #   ヘルプ表示
     if "^help" in message.content:
@@ -109,8 +107,6 @@ async def on_vc_end(member,channel):
 @client.event
 async def on_voice_state_update(member,before,after):
     if before.channel != after.channel:
-        #print(before.channel)
-        #print(after.channel)
         # before.channelとafter.channelが異なるなら入退室
         if after.channel and len(after.channel.members) == 1:
             #print(len(after.channel.members))
