@@ -4,14 +4,13 @@ import discord
 import random
 
 # 自分のBotのアクセストークンに置き換えてください
-TOKEN = 'ODMyMjIxMzk4NjU4OTczNzQ2.YHgokw.G5u4p9vVJZo5ueGKijfxmamJFEs'
+#public版なので隠します
+TOKEN = '**************************************************'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
 
-CHANNEL_ID = 735441730509209601
-#テストサーバー用
-#CHANNEL_ID = 734764164576182305
+CHANNEL_ID = '*************************'
 
 # 起動時に動作する処理
 @client.event
@@ -25,18 +24,6 @@ async def on_message(message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
-    # 「/neko」と発言したら「にゃーん」が返る処理
-    # if message.content == '^neko':
-    #     await message.channel.send('にゃーん')
-    #     #await message.channel.send(message.author.id)
-
-    # # 「/neko」と発言したら「にゃーん」が返る処理
-    # if message.content == '^duel':
-    #     rand = random.randint(0, 1)
-    #     if rand == 0:
-    #         await message.channel.send(f'{message.author.name}は先攻です！')
-    #     if rand == 1:
-    #         await message.channel.send(f'{message.author.name}は後攻です！')
     if message.content == "^join":
         if message.author.voice is None:
             await message.channel.send("ボイスチャンネルに入ってから呼んでね！")
@@ -74,41 +61,6 @@ async def on_message(message):
             await unmute(message)
         else:
             await message.channel.send("botを自分と同じボイスチャンネルに入れてからにしてね！")
-        
-    # if message.content == "^mute_0":
-    #     if message.author.guild_permissions.administrator:
-    #         await message.channel.send("admin")
-    #         #vc0 = client.get_channel(797564863186599966) # ボイスチャンネルを取得
-    #         #テストサーバー用
-    #         vc0 = client.get_channel(734764164576182306)
-    #         for member in vc0.members:
-    #             await member.edit(mute=True) # チャンネルの各参加者をミュートする
-    #     else:
-    #         await message.channel.send("実行できません。")
-    
-    # if message.content == "^mute_1":
-    #     if message.author.guild_permissions.administrator:
-    #         vc1 = client.get_channel(698250599921221653) # ボイスチャンネルを取得
-    #         for member in vc1.members:
-    #             await member.edit(mute=True) # チャンネルの各参加者をミュートする
-    #     else:
-    #         await message.channel.send("実行できません。")
-
-    # if message.content == "^mute_2":
-    #     if message.author.guild_permissions.administrator:
-    #         vc2 = client.get_channel(698250895997141064) # ボイスチャンネルを取得
-    #         for member in vc2.members:
-    #             await member.edit(mute=True) # チャンネルの各参加者をミュートする
-    #     else:
-    #         await message.channel.send("実行できません。")
-
-    # if message.content == "^mute_3":
-    #     if message.author.guild_permissions.administrator:
-    #         vc3 = client.get_channel(797573029478793236) # ボイスチャンネルを取得
-    #         for member in vc3.members:
-    #             await member.edit(mute=True) # チャンネルの各参加者をミュートする
-    #     else:
-    #         await message.channel.send("実行できません。")
             
     #bot停止(管理者のみ)
     if "^stop" in message.content:
@@ -197,9 +149,6 @@ async def unmute(message):
             await member.edit(mute=False) # チャンネルの各参加者をミュート解除する
     else:
         await message.channel.send("管理者じゃないよ！")
-        
- 
-
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
